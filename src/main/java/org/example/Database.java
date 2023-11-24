@@ -1,10 +1,12 @@
 package org.example;
 
-import javax.lang.model.element.Name;
+import comparators.GradeComparator;
+import comparators.NameComparator;
+import comparators.SwimTypeComparator;
+import comparators.activeComparator;
+
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.*;
@@ -17,9 +19,6 @@ public class Database {
 
 
 
-
-
-
     public Database() {
         try {
             this.members = filehandler.loadAllData();
@@ -28,9 +27,8 @@ public class Database {
         }
     }
 
-
-    public void addMember(String name, int age, String birthday, String adress, boolean isActive, String grade, String swimTyp) {
-        Member newMember = new Member(name, age, birthday, adress, isActive, grade, swimTyp);
+    public void addMember(String name, int age, String birthday, String address, boolean isActive, String grade, String swimType) {
+        Member newMember = new Member(name, age, birthday, address, isActive, grade, swimType);
         try {
             members.add(newMember);
             filehandler.saveMembers(members, file);
@@ -59,7 +57,7 @@ public class Database {
     }
 
     //TODO
-    public void createMembers() {
+    public void CreateMembers() {
         Database MembersData = new Database();
         System.out.println("\n write your full name");
         String Name = scanner.next();
@@ -79,17 +77,17 @@ public class Database {
         String grade = "";
 
         if ( age <= 18 ) {
-            System.out.println("You are a junior");
+            System.out.println("You will be joining the junior team");
             grade ="junior";
 
         }
         else {
-            System.out.println("You are a senior");
+            System.out.println("You will be joining the senior team");
             grade="senior";
         }
 
         System.out.println("\n write your address: ");
-        String adress = scanner.next();
+        String address = scanner.next();
 
         boolean isActive;
         do {
@@ -98,7 +96,7 @@ public class Database {
                 isActive = scanner.nextBoolean();
                 break;
             } else {
-                System.out.println("You must precisely type true or false.");
+                System.out.println("An error occured:/ \n Please write true or false ");
                 scanner.nextLine();
             }
         } while (true);
@@ -108,21 +106,21 @@ public class Database {
         String swimType = scanner.nextLine();
 
 
-        Member member = new Member(Name, Age, birthday, adress, isActive, grade, swimType);
+        Member member = new Member(Name, Age, birthday, address, isActive, grade, swimType);
 
-        MembersData.addMember(Name, Age, birthday, adress, isActive, grade, swimType);
+        MembersData.addMember(Name, Age, birthday, address, isActive, grade, swimType);
 
        System.out.println(member);
     }
 
-    public void nameComparator() {
+    public void NameComparator() {
         NameComparator comparison = new NameComparator();
         Collections.sort(members, comparison);
         for (Member member: members){
             System.out.println(member.getName());
         }
     }
-    public void showAllMembers() {
+    public void ShowAllMembers() {
         if (members != null) {
             NameComparator comparison = new NameComparator();
             Collections.sort(members, comparison);
@@ -136,8 +134,7 @@ public class Database {
 
     }
 
-
-    public boolean activeComparator() {
+    public boolean ActiveComparator() {
         activeComparator comparator = new activeComparator();
         Collections.sort(members, comparator);
 
@@ -169,19 +166,47 @@ public class Database {
             System.out.println(member.getSwimType());
         }
     }
+    public void SearchSwimmer(){
+        System.out.println("Write the name of the Swimmer");
+        String userInput = scanner.nextLine();
+        ArrayList<Member> searchResult = getMembers();
 
+        if(searchResult.isEmpty()) {
+            System.out.println("There is no swimmer with that name in the club");
+        }else if(searchResult.size() > 1){
 
+            int counter = 0;
+            for (Member member : searchResult){
+            if(member.getName().startsWith(userInput)){
+                System.out.println("" + counter++ + "\n" +
+                member.getName() + "\n" +
+                member.getAge() + "\nBorn " +
+                member.getBirthday() + "\nThe swimmer lives in " +
+                member.getAddress() + "\nThe swimmer is either active or non-active based on (true/false) \n" +
+                member.getIsActive() + "\nThe selected swimmer is a " +
+                member.getSwimType() + "\n"
+
+                );
+            }
+
+            }
+}
+
+}
     //categorized list of the members (switch case)
-    public void sortedOptions() {
+    public void sortedOptionsForCoach() {
         int categorized = scanner.nextInt();
         scanner.nextLine();
         switch (categorized) {
-            case 1 -> activeComparator();
-            case 2 -> nameComparator();
+            case 1 -> ActiveComparator();
+            case 2 -> NameComparator();
             case 3 -> GradeComparator();
             case 4 -> SwimTypeComparator();
+            case 5 -> SearchSwimmer();
+            //case 6 -> //Top 5 swimmers
+            //case 7 > // training time for all the swimmers
 
-            default -> System.out.println("try againxxx");
+            default -> System.out.println("unable to understand your command ");
         }
     }
 
@@ -189,9 +214,9 @@ public class Database {
         int categorized = scanner.nextInt();
         scanner.nextLine();
         switch (categorized) {
-            case 1 -> showAllMembers();  //show all members
-            case 2 -> nameComparator();// sorted by name
-            case 3 -> activeComparator(); // sorted..
+            case 1 -> ShowAllMembers();  //show all members
+            case 2 -> NameComparator();// sorted by name
+            case 3 -> ActiveComparator(); // sorted..
             case 4 -> GradeComparator(); // sorted by grade
             case 5 -> SwimTypeComparator();// sorted by swimtype
 

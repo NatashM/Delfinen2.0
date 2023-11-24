@@ -5,7 +5,7 @@ public class Controller {
 
 
     public void createMembers(){
-       database.createMembers();
+       database.CreateMembers();
     }
 
     public boolean removeMembers(String name){
@@ -17,20 +17,23 @@ public class Controller {
     }
 
     public void ShowListOfMember(){
-        database.showAllMembers();
+        database.ShowAllMembers();
 
     }
-    public void SortedOptions (){
-        database.sortedOptions();
+    public void SortedOptionsForCoach (){
+        database.sortedOptionsForCoach();
     }
 
     public void nameComparator(){
-        database.nameComparator();
+        database.NameComparator();
     }
 
     public void sortedOptionsForChairman(){
         database.sortedOptionsForChairman();
     }
-
+    public void searchSwimmer(){
+        database.SearchSwimmer();
+    }
 
 }
+

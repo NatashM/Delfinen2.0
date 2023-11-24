@@ -1,4 +1,6 @@
-package org.example;
+package comparators;
+
+import org.example.Member;
 
 import java.util.Comparator;
 

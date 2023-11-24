@@ -1,6 +1,7 @@
 package org.example;
 import java.io.IOException;
 import java.nio.charset.StandardCharsets;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.PrintStream;
@@ -25,7 +26,7 @@ public class FileHandler {
             String[] attributes = line.split(";");
 
             if (attributes.length >= 7) {
-                Member swimMemberData1 = new Member(
+                Member swimMemberData1 = new Member (
                         attributes[0],
                         Integer.parseInt(attributes[1]),
                         attributes[2],
@@ -41,7 +42,6 @@ public class FileHandler {
         }
         return MemberDataList;
     }
-
 
     public void saveMembers(ArrayList<Member> listOfMembersToSave, File file) throws FileNotFoundException {
         PrintStream saveToFile = new PrintStream(file);

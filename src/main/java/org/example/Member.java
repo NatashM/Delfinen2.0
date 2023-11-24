@@ -1,5 +1,7 @@
 package org.example;
 
+import java.time.LocalDate;
+
 public class Member {
     private String name;
     private int age;
@@ -8,8 +10,7 @@ public class Member {
     private boolean isActive;
     private String grade;
     private String swimType;
-
-
+    //private LocalDate lastPaymentDate;
 
 
 
@@ -21,7 +22,7 @@ public class Member {
         this.isActive = isActive;
         this.grade = grade;
         this.swimType = swimType;
-
+        //this.lastPaymentDate = lastPaymentDate;
 
     }
 
@@ -65,7 +66,6 @@ public class Member {
     public void setBirthDay( String birthday) {
         this.birthDay = birthday;
     }
-
 
 
     public void setAddress(String address) {
