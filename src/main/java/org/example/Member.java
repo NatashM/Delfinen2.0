@@ -11,6 +11,8 @@ public class Member {
 
 
 
+
+
     public Member(String name, int age, String birthDay, String address, boolean isActive, String grade, String swimType) {
         this.name = name;
         this.age = age;

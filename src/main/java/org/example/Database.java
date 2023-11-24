@@ -110,9 +110,9 @@ public class Database {
 
         Member member = new Member(Name, Age, birthday, adress, isActive, grade, swimType);
 
-        MembersData.addMember(Name, Age, birthday,adress, isActive, grade, swimType);
+        MembersData.addMember(Name, Age, birthday, adress, isActive, grade, swimType);
 
-        System.out.println(member);
+       System.out.println(member);
     }
 
     public void nameComparator() {
@@ -136,9 +136,10 @@ public class Database {
 
     }
 
-        public boolean activeComparator(){
-            activeComparator comparator = new activeComparator();
-            Collections.sort(members, comparator);
+
+    public boolean activeComparator() {
+        activeComparator comparator = new activeComparator();
+        Collections.sort(members, comparator);
 
         for (Member member : members) {
             if (member.getIsActive())
