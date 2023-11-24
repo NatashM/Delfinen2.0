@@ -17,13 +17,20 @@ public class Controller {
     }
 
     public void ShowListOfMember(){
-        database.NameComparator();
+        database.showAllMembers();
+
     }
     public void SortedOptions (){
         database.sortedOptions();
     }
 
+    public void nameComparator(){
+        database.nameComparator();
+    }
 
+    public void sortedOptionsForChairman(){
+        database.sortedOptionsForChairman();
+    }
 
 
 }

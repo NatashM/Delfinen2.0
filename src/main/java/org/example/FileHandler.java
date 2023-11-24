@@ -8,7 +8,7 @@ import java.util.Scanner;
 import java.io.FileNotFoundException;
 
 public class FileHandler {
-    private final File CSVFile = new File("swimData2.cvs");
+    private final File CSVFile = new File("swimData2.csv");
 
     public ArrayList<Member> loadAllData() {
         ArrayList<Member> MemberDataList = new ArrayList<>();
@@ -28,7 +28,7 @@ public class FileHandler {
                 Member swimMemberData1 = new Member(
                         attributes[0],
                         Integer.parseInt(attributes[1]),
-                        Integer.parseInt(attributes[2]),
+                        attributes[2],
                         attributes[3],
                         Boolean.parseBoolean(attributes[4]),
                         attributes[5],

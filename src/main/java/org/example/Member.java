@@ -3,7 +3,7 @@ package org.example;
 public class Member {
     private String name;
     private int age;
-    private int birthDay;
+    private String birthDay;
     private String address;
     private boolean isActive;
     private String grade;
@@ -11,7 +11,7 @@ public class Member {
 
 
 
-    public Member(String name, int age, int birthDay, String address,boolean isActive,String grade,String swimType) {
+    public Member(String name, int age, String birthDay, String address, boolean isActive, String grade, String swimType) {
         this.name = name;
         this.age = age;
         this.birthDay = birthDay;
@@ -31,7 +31,7 @@ public class Member {
         return age;
     }
 
-    public int getBirthday() {
+    public String getBirthday() {
         return birthDay;
     }
 
@@ -60,7 +60,7 @@ public class Member {
         this.age = age;
     }
 
-    public void setBirthDay( int birthday) {
+    public void setBirthDay( String birthday) {
         this.birthDay = birthday;
     }
 
