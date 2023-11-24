@@ -3,15 +3,21 @@ package org.example;
 import javax.lang.model.element.Name;
 import java.io.File;
 import java.io.FileNotFoundException;
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Scanner;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.format.DateTimeFormatter;
+import java.util.*;
 
 public class Database {
     private ArrayList<Member> members;
     Scanner scanner = new Scanner(System.in);
     private final File file = new File("swimMembersData.csv");
     private final FileHandler filehandler = new FileHandler();
+
+
+
+
 
 
     public Database() {
@@ -23,7 +29,7 @@ public class Database {
     }
 
 
-    public void addMember(String name, int age, int birthday, String adress, boolean isActive, String grade, String swimTyp) {
+    public void addMember(String name, int age, String birthday, String adress, boolean isActive, String grade, String swimTyp) {
         Member newMember = new Member(name, age, birthday, adress, isActive, grade, swimTyp);
         try {
             members.add(newMember);
@@ -52,6 +58,7 @@ public class Database {
         return members;
     }
 
+    //TODO
     public void createMembers() {
         Database MembersData = new Database();
         System.out.println("\n write your full name");
@@ -61,18 +68,41 @@ public class Database {
         int Age = scanner.nextInt();
 
         System.out.println("\n write your birthday");
-        int birthday = scanner.nextInt();
+        String birthday = scanner.next();
 
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyy");
+        LocalDate dateNow =  LocalDate.now();
 
-        System.out.println("\n write your adress: ");
+        LocalDate date = LocalDate.parse(birthday, formatter);
+        int age = dateNow.getYear() - date.getYear();
+
+        String grade = "";
+
+        if ( age <= 18 ) {
+            System.out.println("You are a junior");
+            grade ="junior";
+
+        }
+        else {
+            System.out.println("You are a senior");
+            grade="senior";
+        }
+
+        System.out.println("\n write your address: ");
         String adress = scanner.next();
 
-        System.out.println("Write if your a active or not");
-        boolean isActive = scanner.nextBoolean();
+        boolean isActive;
+        do {
+            System.out.print("You want a active membership (true/false): ");
+            if (scanner.hasNextBoolean()) {
+                isActive = scanner.nextBoolean();
+                break;
+            } else {
+                System.out.println("You must precisely type true or false.");
+                scanner.nextLine();
+            }
+        } while (true);
 
-
-        System.out.println("");
-        String grade = scanner.nextLine();
 
         System.out.println("");
         String swimType = scanner.nextLine();
@@ -85,7 +115,14 @@ public class Database {
         System.out.println(member);
     }
 
-    public void NameComparator() {
+    public void nameComparator() {
+        NameComparator comparison = new NameComparator();
+        Collections.sort(members, comparison);
+        for (Member member: members){
+            System.out.println(member.getName());
+        }
+    }
+    public void showAllMembers() {
         if (members != null) {
             NameComparator comparison = new NameComparator();
             Collections.sort(members, comparison);
@@ -103,45 +140,63 @@ public class Database {
             activeComparator comparator = new activeComparator();
             Collections.sort(members, comparator);
 
-            for (Member member : members) {
-                if (member.getIsActive())
-                    return true;
-                System.out.println(member.getIsActive());
-            }
-            return false;
+        for (Member member : members) {
+            if (member.getIsActive())
+                return true;
+            System.out.println(member.getIsActive());
         }
+        return false;
+    }
 
 
-
-        public void GradeComparator(){
+    public void GradeComparator() {
         GradeComparator gradeComparator = new GradeComparator();
         Collections.sort(members, gradeComparator);
 
-        for (Member member : members){
-            System.out.println(member.getGrade());
+        for (Member member : members) {
+            System.out.println(member.getName() + " = " + member.getGrade());
+
+        }
+
+    }
+
+    public void SwimTypeComparator() {
+        SwimTypeComparator swimTypeComparator = new SwimTypeComparator();
+        Collections.sort(members, swimTypeComparator);
+
+        for (Member member : members) {
+            System.out.println(member.getSwimType());
         }
     }
-        public void SwimTypeComparator(){
-            SwimTypeComparator swimTypeComparator = new SwimTypeComparator();
-            Collections.sort(members, swimTypeComparator);
-
-            for (Member member : members){
-                System.out.println(member.getSwimType());
-            }
-            }
 
 
-        //categorized list of the members (switch case)
-        public void sortedOptions () {
-            int categorized = scanner.nextInt();
-            scanner.nextLine();
-            switch (categorized) {
-                case 1 -> activeComparator();
-                case 2 -> NameComparator();
-                case 3 -> GradeComparator();
-                case 4 -> SwimTypeComparator();
+    //categorized list of the members (switch case)
+    public void sortedOptions() {
+        int categorized = scanner.nextInt();
+        scanner.nextLine();
+        switch (categorized) {
+            case 1 -> activeComparator();
+            case 2 -> nameComparator();
+            case 3 -> GradeComparator();
+            case 4 -> SwimTypeComparator();
 
-                default -> System.out.println("try againxxx");
-            }
+            default -> System.out.println("try againxxx");
         }
     }
+
+    public void sortedOptionsForChairman() {
+        int categorized = scanner.nextInt();
+        scanner.nextLine();
+        switch (categorized) {
+            case 1 -> showAllMembers();  //show all members
+            case 2 -> nameComparator();// sorted by name
+            case 3 -> activeComparator(); // sorted..
+            case 4 -> GradeComparator(); // sorted by grade
+            case 5 -> SwimTypeComparator();// sorted by swimtype
+
+
+            default -> System.out.println("Unable to understand your command");
+        }
+    }
+
+}
