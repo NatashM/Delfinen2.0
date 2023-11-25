@@ -1,3 +1,4 @@
-Name;Age;Birthday;Address;Activity type;Grade;Competition status
-Natasha;18;070805;Copenhagen;true;Senior;non-competitor
-Azra;15;270808;Manhattan;false;Junior;competitor-swimmer
+Name;Age;Birthday;Address;Activity type;Grade;Competition status;Training time;
+Natasha;18;070805;Copenhagen;true;Senior;non-competitor;90
+Azra;15;270808;Manhattan;false;Junior;competitor-swimmer;02:60
+John;20;200803;London;True;Senior;Competitor-swimmer;03:30

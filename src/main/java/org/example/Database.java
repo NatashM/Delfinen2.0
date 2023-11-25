@@ -133,6 +133,41 @@ public class Database {
         }
 
     }
+    public CompetitorMember findSwimmerByName(String swimmerName) {
+        for (Member member : members) {
+            if (member instanceof CompetitorMember && member.getName().equalsIgnoreCase(swimmerName)) {
+                return (CompetitorMember) member;
+            }
+        }
+        return null;
+    }
+
+
+    public Result getBestTrainingResultForSwimmer(String swimmerName) {
+        CompetitorMember swimmer = findSwimmerByName(swimmerName);
+        if (swimmer != null) {
+            return swimmer.getBestTrainingResult();
+        }
+        return null;
+    }
+
+    public void displayAllTrainingTimes() {
+        for (Member member : members) {
+            if (member instanceof CompetitorMember) {
+                CompetitorMember competitorMember = (CompetitorMember) member;
+                System.out.println("Swimmer: " + competitorMember.getName());
+                Result bestResult = competitorMember.getBestTrainingResult();
+                if (bestResult != null) {
+                    System.out.println("Best Training Result: " +
+                            bestResult.getTime + " seconds on " + bestResult.getDate());
+                } else {
+                    System.out.println("No training results available.");
+                }
+                System.out.println();
+            }
+        }
+    }
+
 
     public boolean ActiveComparator() {
         activeComparator comparator = new activeComparator();
@@ -193,20 +228,50 @@ public class Database {
 }
 
 }
-    //categorized list of the members (switch case)
+    private void handleBestTrainingResult() {
+        System.out.println("Enter the name of the swimmer:");
+        String swimmerName = scanner.nextLine();
+        Result bestResult = getBestTrainingResultForSwimmer(swimmerName);
+        if (bestResult != null) {
+            System.out.println("Best Training Result for " + swimmerName + ":");
+            System.out.println("Date: " + bestResult.getDate());
+            System.out.println("Discipline: " + bestResult.getSwimmingDiscipline());
+            // Add more details if needed
+        } else {
+            System.out.println("No training results available for " + swimmerName + ".");
+        }
+    }
+
     public void sortedOptionsForCoach() {
         int categorized = scanner.nextInt();
         scanner.nextLine();
-        switch (categorized) {
-            case 1 -> ActiveComparator();
-            case 2 -> NameComparator();
-            case 3 -> GradeComparator();
-            case 4 -> SwimTypeComparator();
-            case 5 -> SearchSwimmer();
-            //case 6 -> //Top 5 swimmers
-            //case 7 > // training time for all the swimmers
 
-            default -> System.out.println("unable to understand your command ");
+        switch (categorized) {
+            case 1:
+                ActiveComparator();
+                break;
+            case 2:
+                NameComparator();
+                break;
+            case 3:
+                GradeComparator();
+                break;
+            case 4:
+                SwimTypeComparator();
+                break;
+            case 5:
+                SearchSwimmer();
+                break;
+            case 6:
+                handleBestTrainingResult();
+                break;
+            case 7:
+                displayAllTrainingTimes();
+
+
+
+            default:
+                System.out.println("Unable to understand your command.");
         }
     }
 

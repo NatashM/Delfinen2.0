@@ -34,6 +34,15 @@ public class Controller {
     public void searchSwimmer(){
         database.SearchSwimmer();
     }
+    public Result getBestTrainingResultForSwimmer(String swimmerName) {
+        return database.getBestTrainingResultForSwimmer(swimmerName);
+    }
 
+    public void displayAllTrainingTimes() {
+        database.displayAllTrainingTimes();
+
+    }
 }
+
+
 
