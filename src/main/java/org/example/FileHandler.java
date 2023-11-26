@@ -25,7 +25,7 @@ public class FileHandler {
             String line = filescanner.nextLine();
             String[] attributes = line.split(";");
 
-            if (attributes.length >= 7) {
+            if (attributes.length >= 8) {
                 Member swimMemberData1 = new Member (
                         attributes[0],
                         Integer.parseInt(attributes[1]),

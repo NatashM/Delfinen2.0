@@ -14,7 +14,7 @@ public class UserInterface {
     public void startProgram() {
         boolean exitProgram = false;
         while (!exitProgram) {
-            System.out.println("\n Welcome to the delfin swim club!");
+            System.out.println("\n Welcome to the dolphin swim club!");
             System.out.println(" Choose a way to access the system:  ");
             System.out.println("1. New member? then please proceed to sign up!");
             System.out.println("2. Dolphin clubs chairman");
@@ -36,7 +36,7 @@ public class UserInterface {
                         System.out.println(" 3. Sort by active or passive members:");
                         System.out.println(" 4. Sort by grade: ");
                         System.out.println(" 5. Sort by competition status:");
-                        System.out.println(" 6. Remove a member from the system");
+                        System.out.println(" 6. Remove a member from the club");
 
                         controller.sortedOptionsForChairman();
                         break;

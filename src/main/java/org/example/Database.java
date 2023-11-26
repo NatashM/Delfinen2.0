@@ -223,8 +223,6 @@ public class Database {
     }
 
 
-
-
     public void SearchSwimmer(){
         System.out.println("Write the name of the Swimmer");
         String userInput = scanner.nextLine();
@@ -279,7 +277,7 @@ public class Database {
             System.out.println("Best Training Result for " + swimmerName + ":");
             System.out.println("Date: " + bestResult.getDate());
             System.out.println("Discipline: " + bestResult.getSwimmingDiscipline());
-            // Add more details if needed
+
         } else {
             System.out.println("No training results available for " + swimmerName + ".");
         }
@@ -364,6 +362,11 @@ public class Database {
             case 3 -> ActiveComparator(); // sorted..
             case 4 -> GradeComparator(); // sorted by grade
             case 5 -> SwimTypeComparator();// sorted by swimtype
+            case 6 -> {
+                System.out.println("Enter the name of the member to be removed: ");
+                String memberNameToRemove = scanner.nextLine();
+                removeMembers(memberNameToRemove);
+            }
 
 
             default -> System.out.println("Unable to understand your command");
