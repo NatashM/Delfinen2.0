@@ -33,8 +33,8 @@ public class FileHandler {
                         attributes[3],
                         Boolean.parseBoolean(attributes[4]),
                         attributes[5],
-                        attributes[6]
-
+                        attributes[6],
+                        attributes[7]
                 );
                 MemberDataList.add(swimMemberData1);
 

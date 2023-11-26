@@ -1,9 +1,6 @@
 package org.example;
 
-import comparators.GradeComparator;
-import comparators.NameComparator;
-import comparators.SwimTypeComparator;
-import comparators.activeComparator;
+import comparators.*;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -13,12 +10,14 @@ import java.util.*;
 
 public class Database {
     private ArrayList<Member> members;
+    private ArrayList<Member> senior = new ArrayList<>();
+    private ArrayList<Member> junior = new ArrayList<>();
     Scanner scanner = new Scanner(System.in);
     private final File file = new File("swimMembersData.csv");
     private final FileHandler filehandler = new FileHandler();
 
 
-
+//add ligesom inventory
     public Database() {
         try {
             this.members = filehandler.loadAllData();
@@ -27,14 +26,36 @@ public class Database {
         }
     }
 
-    public void addMember(String name, int age, String birthday, String address, boolean isActive, String grade, String swimType) {
-        Member newMember = new Member(name, age, birthday, address, isActive, grade, swimType);
+    public void addMember(String name, int age, String birthday, String address, boolean isActive, String grade, String swimType,String trainingTime) {
+        Member newMember = new Member(name, age, birthday, address, isActive, grade, swimType,trainingTime);
         try {
             members.add(newMember);
             filehandler.saveMembers(members, file);
 
         } catch (FileNotFoundException e) {
             e.printStackTrace();
+        }
+
+        if( age <= 18){
+            try{
+                junior.add(newMember);
+                filehandler.saveMembers(junior,new File("juniorMembers.csv"));
+            } catch (Exception e) {
+                throw new RuntimeException(e);
+            }
+        } else{
+            try{
+                senior.add(newMember);
+                filehandler.saveMembers(senior,new File("seniorMembers.csv"));
+            } catch (FileNotFoundException e) {
+                throw new RuntimeException(e);
+            }
+        }
+        try{
+            members.add(newMember);
+            filehandler.saveMembers(members, file);
+        } catch (FileNotFoundException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -102,13 +123,16 @@ public class Database {
         } while (true);
 
 
-        System.out.println("");
-        String swimType = scanner.nextLine();
+        System.out.println("Your desired swim discipline");
+        String swimType = scanner.next();
+
+        System.out.println("Write your training time");
+        String trainingTime = scanner.next();
 
 
-        Member member = new Member(Name, Age, birthday, address, isActive, grade, swimType);
+        Member member = new Member(Name, Age, birthday, address, isActive, grade, swimType,trainingTime);
 
-        MembersData.addMember(Name, Age, birthday, address, isActive, grade, swimType);
+        MembersData.addMember(Name, Age, birthday, address, isActive, grade, swimType,trainingTime);
 
        System.out.println(member);
     }
@@ -133,41 +157,28 @@ public class Database {
         }
 
     }
-    public CompetitorMember findSwimmerByName(String swimmerName) {
-        for (Member member : members) {
-            if (member instanceof CompetitorMember && member.getName().equalsIgnoreCase(swimmerName)) {
-                return (CompetitorMember) member;
-            }
-        }
-        return null;
+
+
+    public void trainingTimeForEachSwimmer() {
+
+        System.out.println("Enter the name of the swimmer,to find their training time:");
+        String userIndput = scanner.nextLine();
+
+        ArrayList<Member> searchResult = getMembers();
+
+        if (searchResult.isEmpty()) {
+            System.out.println("No training results available for this person.");
+        } else if (searchResult.size() > 1) {
+            int counter = 0;
+
+            for (Member member : members) {
+                if (member.getName().startsWith(userIndput)) {
+                    System.out.println("Training time: " + " " + member.getTrainingTime());
+
+
+
     }
-
-
-    public Result getBestTrainingResultForSwimmer(String swimmerName) {
-        CompetitorMember swimmer = findSwimmerByName(swimmerName);
-        if (swimmer != null) {
-            return swimmer.getBestTrainingResult();
-        }
-        return null;
-    }
-
-    public void displayAllTrainingTimes() {
-        for (Member member : members) {
-            if (member instanceof CompetitorMember) {
-                CompetitorMember competitorMember = (CompetitorMember) member;
-                System.out.println("Swimmer: " + competitorMember.getName());
-                Result bestResult = competitorMember.getBestTrainingResult();
-                if (bestResult != null) {
-                    System.out.println("Best Training Result: " +
-                            bestResult.getTime + " seconds on " + bestResult.getDate());
-                } else {
-                    System.out.println("No training results available.");
-                }
-                System.out.println();
-            }
-        }
-    }
-
+}}}
 
     public boolean ActiveComparator() {
         activeComparator comparator = new activeComparator();
@@ -176,7 +187,7 @@ public class Database {
         for (Member member : members) {
             if (member.getIsActive())
                 return true;
-            System.out.println(member.getIsActive());
+            System.out.println(member.getName() + " = " + member.getIsActive());
         }
         return false;
     }
@@ -201,6 +212,19 @@ public class Database {
             System.out.println(member.getSwimType());
         }
     }
+
+    public void trainingTimeComparator() {
+        TrainingTimeComparator trainingTimeComparator = new TrainingTimeComparator();
+        Collections.sort(members, trainingTimeComparator);
+
+        for (Member member : members) {
+            System.out.println(member.getName() + " = " + member.getTrainingTime());
+        }
+    }
+
+
+
+
     public void SearchSwimmer(){
         System.out.println("Write the name of the Swimmer");
         String userInput = scanner.nextLine();
@@ -228,6 +252,25 @@ public class Database {
 }
 
 }
+
+    public CompetitorMember findSwimmerByName(String swimmerName) {
+        for (Member member : members) {
+            if (member instanceof CompetitorMember && member.getName().equalsIgnoreCase(swimmerName)) {
+                return (CompetitorMember) member;
+            }
+        }
+        return null;
+    }
+
+
+    public Result getBestTrainingResultForSwimmer(String swimmerName) {
+        CompetitorMember swimmer = findSwimmerByName(swimmerName);
+        if (swimmer != null) {
+            return swimmer.getBestTrainingResult();
+        }
+        return null;
+    }
+
     private void handleBestTrainingResult() {
         System.out.println("Enter the name of the swimmer:");
         String swimmerName = scanner.nextLine();
@@ -242,6 +285,40 @@ public class Database {
         }
     }
 
+    public void trainingTimeForTopFive(){
+        System.out.println("Top 5 swimmers");
+        for (Member member : members) {
+            if (member instanceof CompetitorMember) {
+                CompetitorMember competitorMember = (CompetitorMember) member;
+                System.out.println("Swimmer: " + competitorMember.getName());
+                Result bestResult = competitorMember.getBestTrainingResult();
+                if (bestResult != null) {
+                    System.out.println("Best Training Result: " +
+                            bestResult.getTime + " seconds on " + bestResult.getDate());
+                } else {
+                    System.out.println("No training results available.");
+                }
+                System.out.println();
+            }
+        }
+    }
+
+    public void displayAllTrainingTimes() {
+        for (Member member : members) {
+            if (member instanceof CompetitorMember) {
+                CompetitorMember competitorMember = (CompetitorMember) member;
+                System.out.println("Swimmer: " + competitorMember.getName());
+                Result bestResult = competitorMember.getBestTrainingResult();
+                if (bestResult != null) {
+                    System.out.println("Best Training Result: " +
+                            bestResult.getTime + " seconds on " + bestResult.getDate());
+                } else {
+                    System.out.println("No training results available.");
+                }
+                System.out.println();
+            }
+        }
+    }
     public void sortedOptionsForCoach() {
         int categorized = scanner.nextInt();
         scanner.nextLine();
@@ -263,11 +340,14 @@ public class Database {
                 SearchSwimmer();
                 break;
             case 6:
-                handleBestTrainingResult();
+                trainingTimeComparator();
                 break;
             case 7:
-                displayAllTrainingTimes();
-
+                trainingTimeForEachSwimmer();
+                break;
+            case 8:
+                handleBestTrainingResult();
+                break;
 
 
             default:

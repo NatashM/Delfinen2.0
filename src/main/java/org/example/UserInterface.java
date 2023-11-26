@@ -46,8 +46,8 @@ public class UserInterface {
                         System.out.println("3. Sort by grade:");
                         System.out.println("4. Sort by competition status:");
                         System.out.println("5. Search for a swimmer");
-                        System.out.println("6. Training time for each swimmer");
-                        System.out.println("7. Training times for all swimmers");
+                        System.out.println("6. Training times for all swimmers");
+                        System.out.println("7. Training time for each swimmer");
                         controller.SortedOptionsForCoach();
                         break;
 
@@ -72,7 +72,7 @@ public class UserInterface {
 
                     case 7:
                         System.out.println("Training times for all swimmers:");
-                        controller.displayAllTrainingTimes();
+                        controller.getBestTrainingResultForSwimmer("idk");
                         break;
 
 
