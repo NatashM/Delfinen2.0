@@ -17,7 +17,7 @@ public class Database {
     private final FileHandler filehandler = new FileHandler();
 
 
-//add ligesom inventory
+
     public Database() {
         try {
             this.members = filehandler.loadAllData();
@@ -77,7 +77,7 @@ public class Database {
         return members;
     }
 
-    //TODO
+
     public void CreateMembers() {
         Database MembersData = new Database();
         System.out.println("\n write your full name");
@@ -188,6 +188,7 @@ public class Database {
             if (member.getIsActive())
                 return true;
             System.out.println(member.getName() + " = " + member.getIsActive());
+
         }
         return false;
     }
@@ -347,7 +348,6 @@ public class Database {
                 handleBestTrainingResult();
                 break;
 
-
             default:
                 System.out.println("Unable to understand your command.");
         }
@@ -372,5 +372,4 @@ public class Database {
             default -> System.out.println("Unable to understand your command");
         }
     }
-
 }

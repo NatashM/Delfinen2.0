@@ -51,7 +51,11 @@ public class FileHandler {
             saveToFile.println(members.getName() + "," +
                     members.getAge() + "," +
                     members.getBirthday() + "," +
-                    members.getAddress());
+                    members.getAddress() + "," +
+                    members.getSwimType() + "," +
+                    members.getTrainingTime() + "," +
+                    members.getGrade());
+
         }
         saveToFile.close();
     }
