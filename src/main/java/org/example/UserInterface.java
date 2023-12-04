@@ -30,6 +30,7 @@ public class UserInterface {
                         controller.createMembers();
                         break;
 
+                    // MENU FOR CHAIRMAN
                     case 2:
                         System.out.println("\n 1. Show all members");
                         System.out.println(" 2. Sorted by name");
@@ -40,6 +41,7 @@ public class UserInterface {
 
                         controller.sortedOptionsForChairman();
                         break;
+                    //  MENU FOR COACH
                     case 3:
                         System.out.println("1. Sort by active or passive members:");
                         System.out.println("2. Sort by name:");
@@ -76,10 +78,23 @@ public class UserInterface {
                         System.out.println("Training times for all swimmers:");
                         controller.getBestTrainingResultForSwimmer("idk");
                         break;
-
-
-
+                    case 8:
+                        System.out.println("top 5 Sen");
+                        controller.trainingTimefortopFiveSenior();
                     case 9:
+                        System.out.println("top 5 Jun");
+                        controller.trainingTimesforTopFiveJunior();
+
+                    // MENU FOR THE ACCOUNTANT
+                    case 10:
+                        System.out.println("Overview over all payments ");
+                        System.out.println("");
+                        System.out.println("");
+                        System.out.println("");
+                        System.out.println("");
+
+
+                    case 100:
                         System.out.println("The program is closing down");
                         exitProgram = true;
 

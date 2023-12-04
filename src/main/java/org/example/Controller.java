@@ -24,6 +24,7 @@ public class Controller {
         database.sortedOptionsForCoach();
     }
 
+
     public void nameComparator(){
         database.NameComparator();
     }
@@ -42,6 +43,13 @@ public class Controller {
         database.displayAllTrainingTimes();
 
     }
+    public void trainingTimefortopFiveSenior(){
+        database.trainingTimeForTopFiveSenior();
+    }
+    public void trainingTimesforTopFiveJunior(){
+        database.trainingTimeForTopFiveJunior();
+    }
+
 }
 
 

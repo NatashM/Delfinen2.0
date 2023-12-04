@@ -34,7 +34,8 @@ public class FileHandler {
                         Boolean.parseBoolean(attributes[4]),
                         attributes[5],
                         attributes[6],
-                        attributes[7]
+                        attributes[7],
+LocalDate
                 );
                 MemberDataList.add(swimMemberData1);
 
