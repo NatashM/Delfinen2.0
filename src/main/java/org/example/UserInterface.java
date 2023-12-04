@@ -42,12 +42,14 @@ public class UserInterface {
                         break;
                     case 3:
                         System.out.println("1. Sort by active or passive members:");
-                        System.out.println("2. Sort by name: ");
+                        System.out.println("2. Sort by name:");
                         System.out.println("3. Sort by grade:");
                         System.out.println("4. Sort by competition status:");
                         System.out.println("5. Search for a swimmer");
                         System.out.println("6. Training times for all swimmers");
                         System.out.println("7. Training time for each swimmer");
+                        System.out.println("9. Top 5 best junior swimmer ");
+                        System.out.println("10. Top 5 best senior swimmer ");
                         controller.SortedOptionsForCoach();
                         break;
 

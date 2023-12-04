@@ -9,11 +9,11 @@ public class CompetitorMember extends Member {
     private String team;
 
     public CompetitorMember(String name, int age, String birthDay, String address, boolean isActive, String grade, String swimType,String trainingTime) {
-        super(name, age, birthDay, address, isActive, grade, swimType,trainingTime);
+        super(name, age, birthDay, address, isActive, grade, swimType, trainingTime,);
         this.trainingResults = new ArrayList<>();
         this.team = "";
-    }
 
+    }
     public List<Result> getTrainingResults() {
         return trainingResults;
     }
