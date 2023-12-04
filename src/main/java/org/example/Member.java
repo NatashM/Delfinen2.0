@@ -112,9 +112,14 @@ public void setPaid(boolean paid){
                 ", Membership = " + isActive +
                 ", Swim discipline = " + swimType +
                 ", Team category = " + grade +
-                ", Training time =" + trainingTime;
+                ", Training time =" + trainingTime + '\'' +
+                ", lastPaymentDay=" + lastPaymentDate +
+                ", membershipFee=" + membershipFee +
+                ", paid=" + paid +
+                '}';
+    }
 
 
 
     }
-}
+
